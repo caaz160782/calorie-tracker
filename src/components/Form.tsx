@@ -1,19 +1,28 @@
-import { useState,ChangeEvent,FormEvent } from 'react'
+import { useState,ChangeEvent,FormEvent, Dispatch } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 import { Register } from '../types/index';
 import { categories } from '../data/categories'
+import { RegisterActions } from '../reducers/registerReducer';
+
+type FormProps={
+  dispatch: Dispatch<RegisterActions>
+}
+
+const initalState:Register ={
+  id : uuidv4(),
+  category: 1,
+  activity: '',
+  calories: 0
+}
 
 
-
-const Form = () => {
-    const [register,setRegister]=useState<Register>({
-        category: 1,
-        activity: '',
-        calories: 0
-    })
+const Form = ({dispatch}:FormProps) => {
+    const [register,setRegister]=useState<Register>(initalState)
 
   const handleChange=(e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>)=>{
-    const isNumberField =['category','calories'].includes(e.target.id)
-    setRegister({...register,[e.target.id]: isNumberField? +e.target.value :e.target.value})
+     const isNumberField =['category','calories'].includes(e.target.id)
+     setRegister({...register,[e.target.id]: isNumberField? +e.target.value :e.target.value})
+    
   }  
 
   const isValidActivity=()=>{
@@ -23,6 +32,10 @@ const Form = () => {
 
   const handleSubmit=(e:FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
+    dispatch({type:'save-activity',payload:{newRegister:register}})
+    console.log(initalState)
+    setRegister({...initalState,
+                 id : uuidv4() })
   }
 
   return (

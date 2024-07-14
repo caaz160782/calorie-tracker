@@ -4,7 +4,9 @@ export type Category ={
 }
 
 export type Register ={
+   id:string,
    category:number,
    activity:string,
    calories:number
 }
+
