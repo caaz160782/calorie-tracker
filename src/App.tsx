@@ -1,11 +1,11 @@
 import { useReducer } from "react"
 import { registerReducer,initalState } from "./reducers/registerReducer"
 import Form from "./components/Form"
-
+import RegisterList from "./components/RegisterList";
 
 function App() {
   const [state,dispatch] =useReducer(registerReducer,initalState) ;
-console.log(state)
+
   return (
     <>
       <header className=" bg-lime-600 py-3">
@@ -22,6 +22,11 @@ console.log(state)
           dispatch={dispatch}
           />
         </div>
+      </section>
+      <section className="p-10 mx-auto max-w-4xl">
+        <RegisterList 
+        activities={state.registers}
+        />
       </section>
     </>
   )
