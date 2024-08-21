@@ -1,11 +1,12 @@
-import { useReducer,useEffect,useMemo } from "react"
-import { registerReducer,initalState } from "./reducers/registerReducer"
+import { useActivity } from "./hooks/useActivity";
+import { useMemo,useEffect } from "react";
 import Form from "./components/Form"
 import RegisterList from "./components/RegisterList";
 import CaloriesTracker from "./components/CaloriesTracker";
 
+
 function App() {
-  const [state,dispatch] =useReducer(registerReducer,initalState) ;
+  const {state,dispatch}= useActivity()
 
   const canRestartApp = useMemo(()=>state.registers.length > 0,[state.registers])
   useEffect(()=>{
@@ -32,26 +33,18 @@ function App() {
 
       <section className=" bg-lime-500 py-20 px-50">
         <div className=" max-w-4xl mx-auto">
-          <Form
-           dispatch={dispatch}
-           state={state}
-          />
+          <Form />
         </div>
       </section>
 
       <section className="bg-gray-800 py-10">
         <div className="max-w-4xl mx-auto ">
-        <CaloriesTracker 
-         activities={state.registers}
-        />
+        <CaloriesTracker />
         </div>
       </section>
 
       <section className="p-10 mx-auto max-w-4xl">
-        <RegisterList 
-          activities={state.registers}
-          dispatch={dispatch}
-        />
+        <RegisterList   />
       </section>
     </>
   )

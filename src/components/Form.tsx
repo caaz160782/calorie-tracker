@@ -1,13 +1,11 @@
-import { useState,useEffect,ChangeEvent,FormEvent, Dispatch } from 'react'
+import { useState,useEffect,ChangeEvent,FormEvent  } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import { Register } from '../types/index';
 import { categories } from '../data/categories'
-import { RegisterActions, RegisterState } from '../reducers/registerReducer';
+import { useActivity } from "../hooks/useActivity"
 
-type FormProps={
-  dispatch: Dispatch<RegisterActions>
-  state:RegisterState
-}
+
+
 
 const initalState:Register ={
   id : uuidv4(),
@@ -17,7 +15,8 @@ const initalState:Register ={
 }
 
 
-const Form = ({dispatch,state}:FormProps) => {
+const Form = () => {
+  const {state,dispatch}= useActivity()
     const [register,setRegister]=useState<Register>(initalState)
 
    useEffect(()=>

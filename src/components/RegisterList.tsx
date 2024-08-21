@@ -1,15 +1,14 @@
-import { useMemo,Dispatch } from "react"
+import { useMemo } from "react"
 import { categories } from "../data/categories"
 import { Register } from "../types"
-import { RegisterActions } from '../reducers/registerReducer';
 import { PencilSquareIcon,XCircleIcon } from "@heroicons/react/24/outline"
+import { useActivity } from "../hooks/useActivity"
 
-type RegisterListProps={
-    activities:Register[],
-    dispatch: Dispatch<RegisterActions>
-}
 
-const RegisterList = ({activities,dispatch}:RegisterListProps) => {
+
+const RegisterList = () => {
+    const {state,dispatch}= useActivity()
+    const activities=state.registers
 
     const categoryName = useMemo (()=>
          (category:Register['category']) =>
